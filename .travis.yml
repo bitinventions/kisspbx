@@ -1,4 +1,5 @@
 language: java
+script: mvn clean package
 deploy:
   provider: releases
   api_key: ${gh_token}
