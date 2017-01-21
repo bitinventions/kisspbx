@@ -49,7 +49,7 @@
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="index2.html" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels -->
+			<a href="#" class="logo" onclick="return false;"> <!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini"><i class="fa fa-paper-plane-o" style="margin-top: 18px;"></i></span> <!-- logo for regular state and mobile devices -->
 				<span class="logo-lg"><i class="fa fa-paper-plane-o"></i>&nbsp;&nbsp;kiss<b>pbx</b></span>
 			</a>
