@@ -1,7 +1,7 @@
 # kisspbx
 Asterisk configuration tool
 
-This is a work in progress. Documentation is in TODO list.
+This is a work in progress. Documentation is in the TODO list.
 
 Testing docker installation: https://github.com/bitinventions/kisspbx-docker
 
