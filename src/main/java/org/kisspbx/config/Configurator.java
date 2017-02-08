@@ -297,8 +297,14 @@ public class Configurator {
 				c.getLines().add(new Line("secret", u.getPassword()));
 				c.getLines().add(new Line("read", u.getReadPermission()));
 				c.getLines().add(new Line("write", u.getWritePermission()));
-				c.addRaw(u.getDeny());
-				c.addRaw(u.getPermit());
+				if (u.getDeny() != null) {
+					for (String s : u.getDeny().split(",")) 
+						c.getLines().add(new Line("deny", s));
+				}
+				if (u.getPermit() != null) {
+					for (String s : u.getPermit().split(",")) 
+						c.getLines().add(new Line("permit", s));
+				}
 				c.getLines().add(new NewLine());
 			}
 			
