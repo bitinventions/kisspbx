@@ -19,8 +19,7 @@ import org.kisspbx.model.ManagerApiUser;
 
 @Startup
 @WebServlet(name="managerController", 
-			urlPatterns={"/manager/", 
-					"/manager/show", 
+			urlPatterns={"/manager/",
 					"/manager/create", 
 					"/manager/save", 
 					"/manager/edit", 
@@ -43,10 +42,7 @@ public class ManagerController extends HttpServlet {
 		System.out.println(request.getServletPath());
 		
 		try {
-			if(request.getServletPath().equals("/manager/show")) {
-				processShow(request, response);
-				
-			} else if(request.getServletPath().equals("/manager/create")) {
+			if(request.getServletPath().equals("/manager/create")) {
 				processCreate(request, response);
 				
 			} else if(request.getServletPath().equals("/manager/save")) {
@@ -78,23 +74,6 @@ public class ManagerController extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void processShow(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-		EntityManager em = AppContextListener.getEntityManager();
-		ManagerApiUser u = new ManagerApiUser();
-		try {
-			u = em.find(ManagerApiUser.class, Long.parseLong(request.getParameter("id")));
-			request.setAttribute("user", u);
-			request.getRequestDispatcher("/WEB-INF/manager/show.jsp").forward(request, response);
-				
-		} catch (PersistenceException e) {
-			request.setAttribute("error", e.getMessage());
-			response.sendRedirect(request.getContextPath() + "/manager/");
-			
-		} finally {
-			em.close();
-		}
-	}
-	
 	private void processCreate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		request.getRequestDispatcher("/WEB-INF/manager/create.jsp").forward(request, response);
 	}
@@ -108,7 +87,7 @@ public class ManagerController extends HttpServlet {
 			
 		} catch (Exception e) {
 			request.setAttribute("error", e.getMessage());
-			response.sendRedirect(request.getContextPath() + "/manager/show?id=" + request.getParameter("id"));
+			response.sendRedirect(request.getContextPath() + "/manager/edit?id=" + request.getParameter("id"));
 		
 		} finally {
 			em.close();
@@ -161,7 +140,7 @@ public class ManagerController extends HttpServlet {
 			em.merge(u);
 			em.getTransaction().commit();
 			request.setAttribute("info", "ManagerUser " + u.getId() + " updated");
-			response.sendRedirect(request.getContextPath() + "/manager/show?id=" + u.getId());
+			response.sendRedirect(request.getContextPath() + "/manager/");
 			
 		} catch (Exception e) {
 			em.getTransaction().rollback();
