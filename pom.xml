@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.kisspbx</groupId>
 	<artifactId>kisspbx</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<packaging>war</packaging>
 	<name>kisspbx</name>
 	<description>Asterisk configuration tool</description>
