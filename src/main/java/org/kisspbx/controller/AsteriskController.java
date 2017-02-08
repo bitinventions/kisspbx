@@ -64,12 +64,8 @@ public class AsteriskController extends HttpServlet {
 	
 	private void processApply(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// get configuration path
-		String path = "";
-		try {
-			InitialContext ctx = new InitialContext();
-			path = (String) ctx.lookup("java:comp/env/asteriskpath");
-			
-		} catch (NamingException e) {
+		String path = System.getenv("asteriskpath");
+		if (path == null) {
 			if (System.getProperty("os.name").toLowerCase().contains("windows"))
 				path = "c:/asterisk";
 			else

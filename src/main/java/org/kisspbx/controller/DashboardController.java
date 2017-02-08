@@ -23,7 +23,8 @@ import com.google.gson.Gson;
 			urlPatterns={"/dashboard/pbx/", "/dashboard/system/",})
 public class DashboardController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Pattern versionRegex = Pattern.compile("^Asterisk\\s+(\\d+\\.\\d+\\.\\d+).*"); 
+	private static final Pattern versionRegex = Pattern.compile("^Asterisk\\s+(\\d+\\.\\d+\\.\\d+).*");
+	private static final Pattern certifiedVersionRegex = Pattern.compile("^Asterisk certified/([^\\s]+).*");
 	
 	public DashboardController() {
         super();
@@ -79,10 +80,15 @@ public class DashboardController extends HttpServlet {
 			
 			res.setLength(0);
 			asterisk.sendCommand("core show version", res);
-			String version = res.toString().split("\n")[0];
+			String version = res.toString().split("\n")[0]; 
 			Matcher m = versionRegex.matcher(version);
-			if (m.matches())  
+			if (m.matches()) {
 				version = m.group(1);
+				
+			} else {
+				m = certifiedVersionRegex.matcher(version);
+				if (m.matches()) version = m.group(1);
+			}
 			
 			res.setLength(0);
 			asterisk.sendCommand("core show calls", res);
